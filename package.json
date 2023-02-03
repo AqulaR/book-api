@@ -6,7 +6,7 @@
 	"homepage": "",
 	"author": "",
 	"scripts": {
-		"install": "npm install ",
+		"install": "npm install",
 		"start": "nodemon index 3000",
 		"server": "nodemon server",
 		"test": "mocha test/api/*.test.js"

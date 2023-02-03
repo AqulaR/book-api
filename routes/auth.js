@@ -5,7 +5,7 @@ const generateTokens = require("../utils/generateToken.js");
 require("dotenv").config();
 
 const router = Router();
-const file = path.join('./models/users.json')
+const file = path.join('./database/users.json')
 const jf = require('jsonfile');
 
 const User = jf.readFileSync(file);
@@ -36,9 +36,13 @@ router.post("/signUp", async (req, res) => {
 
         const newUser = {
             id: User.length,
+            name: req.body.name,
+            surname: req.body.surname,
             username: req.body.username,
             email: req.body.email,
+            phone: req.body.phone,
             password: hashPassword,
+            del: false,
             role: "user"
         }
 
@@ -88,7 +92,7 @@ router.post("/logIn", async (req, res) => {
 
 router.get('/profile', middleware, (req, res) => {
     try {
-        jf.readFile('./models/users.json', (err, obj) => {
+        jf.readFile('./database/users.json', (err, obj) => {
             if (err) throw err
             const fileObj = obj;
             let uid = jf.readFileSync('./models/UserToken.json').find(el => el.token == req.session.refreshToken);
@@ -97,8 +101,11 @@ router.get('/profile', middleware, (req, res) => {
             const user = fileObj.find(el => el.id == uid)
             return res.status(200).json({
                 uid: uid,
+                name: user.name,
+                surname: user.surname,
                 username: user.username,
                 email: user.email,
+                phone: user.phone,
                 role: user.role
             })
         })

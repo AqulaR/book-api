@@ -5,8 +5,8 @@ const expect = require('expect').default
 const request = require('supertest')
 
 let jsonfile = require('jsonfile');
-let file = jsonfile.readFileSync('data.json');
-let userfile = jsonfile.readFileSync('./models/users.json');
+let file = jsonfile.readFileSync('./database/goods.json');
+let userfile = jsonfile.readFileSync('./database/users.json');
 
 let cookies;
 let cookiesA;
@@ -27,8 +27,8 @@ describe("Authorization", () => {
     it('should login as user', () => {
         return request(server).post('/api/login')
             .send({
-                "username": "Daniil",
-                "password": "loes"
+                "username": "aqularu",
+                "password": "aqular"
             })
             .expect(200)
             .then(res => {
@@ -38,7 +38,7 @@ describe("Authorization", () => {
     it('should login as admin', () => {
         return request(server).post('/api/login')
             .send({
-                "username": "Nikolay",
+                "username": "aqulara",
                 "password": "aqular"
             })
             .expect(200)
@@ -53,7 +53,7 @@ describe('GET requests\n', () => {
     describe('/GET book', () => {
         it('should GET all the books', done => {
             request(server)
-                .get("/book")
+                .get("/")
                 .expect(200)
                 .set('Cookie', cookies)
                 .expect((res) => {

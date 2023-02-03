@@ -44,7 +44,7 @@ app.use((err, req, res, next) => {
 	}
 });
 
-app.use('/book', booksRouter)
+app.use('/', booksRouter)
 
 server.listen(port, () => console.log('started'))
 

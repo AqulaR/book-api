@@ -2,7 +2,7 @@ const jwt = require("jsonwebtoken");
 const path = require('path')
 const jf = require('jsonfile');
 
-const file1 = path.join('./models/users.json')
+const file1 = path.join('./database/users.json')
 const file2 = path.join('./models/UserToken.json')
 
 const User = jf.readFileSync(file1);

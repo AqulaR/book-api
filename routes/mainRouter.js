@@ -3,7 +3,8 @@ require("dotenv").config();
 const auth = require('../middleware/checktoken.js');
 const fs = require('fs');
 let jsonfile = require('jsonfile');
-let file = jsonfile.readFileSync('data.json');
+let goodsfile = jsonfile.readFileSync('./database/goods.json');
+let usersfile = jsonfile.readFileSync('./database/users.json');
 
 const router = Router();
 const checktoken = require('../middleware/checktoken.js');
@@ -14,44 +15,32 @@ router.get('/', (req, res) => {
     res.send(JSON.stringify(file, null, '\t'))*/
     return res.status(200).json({
         success: "true",
-        message: "books",
-        book: file,
+        message: "goods",
+        goods: goodsfile,
     });
 });
 
-router.get('/:id', checktoken, (req, res) => {
+/*router.get('/users', (req, res) => {
+    /*res.status(200).type('text/plain')
+    res.send(JSON.stringify(file, null, '\t'))
+    return res.status(200).json({
+        success: "true",
+        message: "users",
+        users: usersfile,
+    });
+});
+
+router.get('/users/:id', checktoken, (req, res) => {
     /*res.status(200).type('text/plain')
     let id = req.params.id;
-    res.send(JSON.stringify(file[id], null, '\t'))*/
+    res.send(JSON.stringify(file[id], null, '\t'))
     return res.status(200).json({
         success: "true",
-        message: "book-id",
-        book: file[req.params.id]
+        message: "user-id",
+        users: usersfile[req.params.id]
     });
 });
 
-router.get('/:id/users', checktoken, (req, res) => {
-    /*res.status(200).type('text/plain')
-    let id = req.params.id;
-    res.send(JSON.stringify(file[id].users, null, '\t'))*/
-    return res.status(200).json({
-        success: "true",
-        message: "book-id-users",
-        users: file[req.params.id].users
-    });
-});
-
-router.get('/:bid/:uid', checktoken, (req, res) => {
-    /*res.status(200).type('text/plain')
-    let bid = req.params.bid;
-    let uid = req.params.uid;
-    res.send(JSON.stringify(file[bid].users[uid], null, '\t'))*/
-    return res.status(200).json({
-        success: "true",
-        message: "book-id-user-id",
-        user: file[req.params.bid].users[req.params.uid]
-    });
-});
 
 router.post('/', checktoken, (req, res) => {
     if (!req.body) return res.sendStatus(400)
@@ -141,5 +130,6 @@ router.delete('/:id', checktoken, checkrole, (req, res) => {
         res.send(obj)
     })
 })
+*/
 
 module.exports = router
